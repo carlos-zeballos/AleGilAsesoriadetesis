@@ -403,6 +403,8 @@ em { font-style: italic; }
 }
 .training-list li { border-right: 1px solid #eee8e2; }
 .training-list img { width: 8rem; height: 3.25rem; object-fit: contain; }
+/* Logos blancos (IPMA, APPROLOG): se muestran en tono oscuro sobre el panel claro */
+.training-list .logo-light img { filter: invert(.86); }
 .training-list small { display: block; margin-top: .2rem; color: #7a716b; font-size: .72rem; font-weight: 400; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
