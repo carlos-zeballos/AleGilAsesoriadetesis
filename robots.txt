@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://carlos-zeballos.github.io/AleGilAsesoriadetesis/sitemap.xml
+Sitemap: https://alegil-asesoria-tesis.pages.dev/sitemap.xml

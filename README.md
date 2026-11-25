@@ -11,7 +11,7 @@ python3 -m http.server 8000
 # http://localhost:8000
 ```
 
-El sitio es HTML, CSS y JavaScript sin dependencias y se puede desplegar en cualquier hosting estático (GitHub Pages, Netlify, Vercel, etc.).
+El sitio es HTML, CSS y JavaScript sin dependencias. Está publicado en **Cloudflare Pages**: <https://alegil-asesoria-tesis.pages.dev/>
 
 ## Estructura
 
@@ -25,30 +25,38 @@ El sitio es HTML, CSS y JavaScript sin dependencias y se puede desplegar en cual
 | `assets/seo/` | Imagen para redes sociales (1200×630) e íconos |
 | `sitemap.xml`, `robots.txt` | Configuración para buscadores |
 | `site.webmanifest`, `favicon.png` | Ícono del sitio |
-| `404.html` | Página de error para GitHub Pages |
+| `404.html` | Página de error |
+| `_headers` | Caché y cabeceras de seguridad para Cloudflare Pages |
 
 ## Dominio del sitio (importante)
 
 Todas las URL absolutas usan por defecto:
 
 ```
-https://carlos-zeballos.github.io/AleGilAsesoriadetesis/
+https://alegil-asesoria-tesis.pages.dev/
 ```
 
-Si el sitio se publica en otro dominio (por ejemplo `https://www.alegil.pe/`), reemplaza esa URL en **todos** estos archivos:
+Si más adelante se usa un dominio propio (por ejemplo `https://www.alegil.pe/`), reemplaza esa URL en **todos** estos archivos:
 
 - `index.html` → `canonical`, `hreflang`, `og:url`, `og:image`, `twitter:image` y el bloque JSON-LD
 - `sitemap.xml`
 - `robots.txt`
-- `404.html` → las rutas `/AleGilAsesoriadetesis/` pasan a ser `/`
 
-Búsqueda rápida: `grep -rn "carlos-zeballos.github.io" .`
+Búsqueda rápida: `grep -rn "alegil-asesoria-tesis.pages.dev" .`
 
-## Publicar en GitHub Pages
+## Publicar cambios en Cloudflare Pages
 
-1. En el repositorio: **Settings → Pages → Build and deployment → Source: Deploy from a branch**.
-2. Rama `main`, carpeta `/ (root)` → **Save**.
-3. Nota: en una cuenta gratuita, GitHub Pages solo funciona con repositorios **públicos**.
+Proyecto de Cloudflare Pages: `alegil-asesoria-tesis` (despliegue directo, sin conexión a Git).
+
+```bash
+# desde la carpeta del proyecto, después de hacer commit
+rm -rf /tmp/alegil-deploy && mkdir /tmp/alegil-deploy
+git archive main | tar -x -C /tmp/alegil-deploy
+rm -f /tmp/alegil-deploy/README.md /tmp/alegil-deploy/.gitignore /tmp/alegil-deploy/.nojekyll
+npx wrangler pages deploy /tmp/alegil-deploy --project-name alegil-asesoria-tesis --branch main
+```
+
+Para que cada `git push` se publique solo, conecta el repositorio desde el panel de Cloudflare: **Workers & Pages → alegil-asesoria-tesis → Settings → Builds & deployments**.
 
 ## Google Search Console
 
